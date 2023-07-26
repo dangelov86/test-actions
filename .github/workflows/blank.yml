@@ -10,14 +10,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Get a code
-        uses: actions/checkout@v3
-      - name: Install NodeJS
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm@5 ci
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci      
       - name: Lint
         run: npm run lint
       - name: Test code
