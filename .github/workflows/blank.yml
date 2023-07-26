@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  Lint:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Get a code
