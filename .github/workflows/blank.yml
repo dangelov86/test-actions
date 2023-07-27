@@ -7,16 +7,20 @@ on:
     branches: [ "main" ]
 
 jobs:
-  upload:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install depend
+        run: npm ci
+      - name: build
+        run: npm run build
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: |
-            dist
-            test.json
+          path: package.json
   download:
     runs-on: ubuntu-latest
     needs: upload
