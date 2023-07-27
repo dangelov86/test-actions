@@ -7,13 +7,23 @@ on:
     branches: [ "main" ]
 
 jobs:
-  deploy:
+  upload:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Upload build artifacts
+        uses: actions/upload-artifacts@v3
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Deploy code
+          name: dist-files
+          path: dist
+  download:
+    runs-on: ubuntu-latest
+    needs: upload
+    steps:
+      - name: Get build artifacts
+        uses: actions/download-artifacts@v3
+        with:
+          name: dist-files
+      - name: Output contents
+        run: ls
+      - name: Deploy
         run: echo "Deploying..."
